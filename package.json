@@ -1,12 +1,12 @@
 {
   "name": "box-appauth",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "https://box-content.readme.io/v2.0/docs/app-auth",
   "main": "./lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test"
   },
-  "author": "",
+  "author": "Sandro Pasquali <spasquali@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "apt-tap": "^1.0.0",
@@ -18,5 +18,21 @@
     "lodash": "^3.10.1",
     "node-uuid": "^1.4.3",
     "request": "^2.61.0"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ehealthtech/box-appauth.git"
+  },
+  "keywords": [
+    "Box",
+    "jwt"
+  ],
+  "bugs": {
+    "url": "https://github.com/ehealthtech/box-appauth/issues"
+  },
+  "homepage": "https://github.com/ehealthtech/box-appauth"
 }

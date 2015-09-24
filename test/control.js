@@ -3,8 +3,8 @@
 var util = require('util');
 var Promise = require('bluebird');
 var test = require('blue-tape');
-var reporter = require('../lib/apt-tap');
-var basic = require('../lib/apt-tap-basic');
+var reporter = require('apt-tap');
+var basic = require('apt-tap-basic');
 
 	
 test
@@ -13,7 +13,7 @@ test
 .pipe(process.stdout);
 	
 test('the test here', function(t) {
-	return new Promise(function(resolve) {	
+	return new Promise(function(resolve) {
 		t.pass('foo');
 		resolve();
 	});

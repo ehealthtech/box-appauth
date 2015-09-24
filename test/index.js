@@ -18,6 +18,7 @@ Promise.longStackTraces();
 var auth = require(path.resolve('.credentials.js'));
 
 // To run specific tests, pass them along via command line.
+// @example	> node test folders files
 //
 var tests = process.argv.splice(2);
 
@@ -60,5 +61,5 @@ appAuth(auth)
 	
 })
 .catch(function(err) {
-	console.log("** Unable to authenticate", err);
+	console.log("** Unable to authenticate **", err);
 });
