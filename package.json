@@ -1,6 +1,6 @@
 {
   "name": "box-appauth",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "https://box-content.readme.io/v2.0/docs/app-auth",
   "main": "./lib/index.js",
   "scripts": {
