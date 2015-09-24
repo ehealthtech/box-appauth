@@ -2,18 +2,18 @@
 
 https://box-content.readme.io/v2.0/docs/app-auth
 
-# Testing
+# Usage
 
 You will need to create a `.credentials.js` folder in the root of the application using this module.
 
 This file should look something like:
 
+```
 "use strict";
 
 var fs = require('fs');
 var path = require('path');
 
-```
 module.exports = {
 	publicKey : fs.readFileSync(path.resolve('./rsa/public_key.pem')),
 	privateKey : fs.readFileSync(path.resolve('./rsa/private_key.pem')),
@@ -25,3 +25,39 @@ module.exports = {
 	clientSecret : '<you client Secret>'
 };
 ```
+
+With above, you will need to create proper public/private keys, register them with Box, and include them in your `.credentials.js` file.
+
+Then simply
+
+```
+
+var appAuth = require('box-appauth');
+
+appAuth(requireCredentialsSomehow())
+.then(function(api) {
+
+	...do something with the Promise based api
+
+	api.folders
+	.methodA({...})
+	.then(function(resultOfMethodA) {
+	   return api.folder.methodB()
+	})
+	.then(function(resultOfMethodB) {
+	    // etc across as many calls as you'd like, all
+	    // executed "sequentially".
+	})
+	.catch(function(err) {
+	    ...
+	})
+
+})
+.catch(function(err) {
+	console.log("** Unable to authenticate **", err);
+});
+
+```
+
+
+
