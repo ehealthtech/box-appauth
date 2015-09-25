@@ -83,7 +83,7 @@ module.exports = function(api, test, Promise) {
 		
 		var upId = this.upFileId;
 		
-		return api.file.update({
+		return api.file.updateInfo({
 			id: upId,
 			name: 'booberry.jpg',
 			description: 'This describes a new booberry file',
