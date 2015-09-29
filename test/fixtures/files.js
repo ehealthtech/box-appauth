@@ -123,7 +123,7 @@ module.exports = function(api, test, Promise) {
 		});
 	})
     .then(function(res) {
-        console.log('** File version updated ->\n', res);
+        console.log('** File version updated ->\n', util.inspect(res, {depth: 10}));
 
         var tmp = this.tempUploadId;
 
@@ -133,7 +133,7 @@ module.exports = function(api, test, Promise) {
         })
     })
     .then(function(res) {
-        console.log('** Upload folder list after file version updated ->\n', res);
+        console.log('** Upload folder list after file version updated ->\n', util.inspect(res, {depth: 10}));
 
         var upId = this.upFileId;
         var tmp = this.tempUploadId;
