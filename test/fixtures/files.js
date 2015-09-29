@@ -35,7 +35,7 @@ module.exports = function(api, test, Promise) {
 
 		return api.file.upload({
 			name: 'mynewfile.jpg',
-			file: __dirname + '/assets/test_image.jpg',
+			file: __dirname + '/assets/test_image_upload.jpg',
 			parentId: tmp,
 			fields: [
 				'total_count'
@@ -114,21 +114,43 @@ module.exports = function(api, test, Promise) {
 		console.log('** Upload folder list after file info updated ->\n', res);
 		
 		var upId = this.upFileId;
-		var tmp = this.tempUploadId;
 
-		// Make a copy of the uploaded file, giving it a new name
+		// Upload a new version of the file.
 		//
-		return api.file.copy({
+		return api.file.update({
 			id: upId,
-			toFolderId: tmp,
-			name: 'abrandnew_name.jpg',
-			fields: [
-				'file_version',
-				'name',
-				'parent'
-			]
+            file: __dirname + '/assets/test_image_update.jpg',
 		});
 	})
+    .then(function(res) {
+        console.log('** File version updated ->\n', res);
+
+        var tmp = this.tempUploadId;
+
+        return api.folder.list({
+            id: tmp,
+            fields: []
+        })
+    })
+    .then(function(res) {
+        console.log('** Upload folder list after file version updated ->\n', res);
+
+        var upId = this.upFileId;
+        var tmp = this.tempUploadId;
+
+        // Make a copy of the uploaded file, giving it a new name
+        //
+        return api.file.copy({
+            id: upId,
+            toFolderId: tmp,
+            name: 'abrandnew_name.jpg',
+            fields: [
+                'file_version',
+                'name',
+                'parent'
+            ]
+        });
+    })
 	.then(function(res) {
 		console.log('** Uploaded file copied ->\n', util.inspect(res, {depth: 10}));
 		
