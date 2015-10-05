@@ -42,19 +42,27 @@ module.exports = function(api, test, Promise) {
 			]
 		})
 	})
-	.then(function(res) {
-		console.log('**  Upload ->\n', util.inspect(res, {depth:10}));
-		
-		// Store new file id
-		//
-		this.upFileId = res.entries[0].id;
-		
-		var tmp = this.tempUploadId;
-		
-		return api.file.download({
-			id: res.entries[0].id
-		})
-	})
+    .then(function(res) {
+        console.log('**  Upload ->\n', util.inspect(res, {depth:10}));
+
+        // Store new file id
+        //
+        this.upFileId = res.entries[0].id;
+
+        return api.file.createLink({
+            id: res.entries[0].id,
+            access: 'open'
+        })
+    })
+    .then(function(res) {
+        console.log('**  Shared Link Created ->\n', util.inspect(res, {depth:10}));
+
+        var dlid = this.upFileId;
+
+        return api.file.download({
+            id: dlid
+        })
+    })
 	.then(function(res) {
 		console.log('**  Download ->', Buffer.byteLength(res, 'utf8'), 'bytes');
 		
