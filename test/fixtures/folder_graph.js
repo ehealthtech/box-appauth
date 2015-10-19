@@ -1,5 +1,6 @@
 "use strict";
 
+var fs = require('fs');
 var util = require('util');
 var _ = require('lodash');
 
@@ -15,7 +16,7 @@ module.exports = function(api, test, Promise) {
         test.ok(graph.paths, '#graph returned paths');
         test.ok(graph.lookup, '#graph returned a lookup table');
 
-        console.log(util.inspect(graph, {depth: 10}));
+        fs.writeFileSync('graph.txt', JSON.stringify(graph))
 /*
         api.folder.move({
             sourceId: 49007261,

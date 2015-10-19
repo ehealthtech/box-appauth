@@ -7,7 +7,6 @@ var Promise = require('bluebird');
 var test = require('blue-tape');
 var glob = require('glob');
 var appAuth = require('../lib');
-var Promise = require('bluebird');
 var reporter = require('apt-tap');
 var basic = require('apt-tap-basic');
 
