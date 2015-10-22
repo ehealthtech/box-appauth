@@ -4,22 +4,27 @@ var util = require('util');
 var _ = require('lodash');
 var uuid = require('node-uuid');
 
-module.exports = function(api, test, Promise) {
+module.exports = function(test, Promise) {
 
-	return api
-	.folder
-	.create({
-		parentId: 0,
-		name: 'RESTORED_FILES_FOLDER'
-	})
+    var API;
+
+	return this.api
+    .then(function(api) {
+
+        API = api;
+
+        return API.folder.create({
+            parentId: 0,
+            name: 'RESTORED_FILES_FOLDER'
+        })
+    })
 	.bind({}) // Is #this through promise chain 
-	
 	.then(function(res) {
 		console.log('** New folder created ->\n', res);
 		
 		this.restoredFolderId = res.id;
 		
-		return api.trash.list({
+		return API.trash.list({
 			limit: 5,
 			offset: 0,
 			fields: []
@@ -37,8 +42,8 @@ module.exports = function(api, test, Promise) {
 			var type = next.type;
 		
 			var meth = next.type === 'folder' 
-						? api.trash.destroyFolder
-						: api.trash.destroyFile
+						? API.trash.destroyFolder
+						: API.trash.destroyFile
 		
 			prev.push(new Promise(function(resolve, reject) {
 				meth({
@@ -59,7 +64,7 @@ module.exports = function(api, test, Promise) {
 	.then(function(res) {
 		console.log('** Trash items destroyed ->\n', res);
 		
-		return api.trash.list({
+		return API.trash.list({
 			limit: 5,
 			fields: []
 		});
@@ -80,8 +85,8 @@ module.exports = function(api, test, Promise) {
 			var newName = name + '_' + uuid.v4();
 		
 			var meth = next.type === 'folder' 
-						? api.trash.restoreFolder
-						: api.trash.restoreFile;
+						? API.trash.restoreFolder
+						: API.trash.restoreFile;
 		
 			prev.push(new Promise(function(resolve, reject) {
 				meth({
@@ -106,7 +111,7 @@ module.exports = function(api, test, Promise) {
 		
 		var restoredFolderId = this.restoredFolderId;
 		
-		return api.folder.list({
+		return API.folder.list({
 			id: restoredFolderId,
 			limit: 5,
 			offset: 0
@@ -127,7 +132,7 @@ module.exports = function(api, test, Promise) {
 		//
 		var tmp = this.restoredFolderId;
 		
-		api.folder.delete({
+		API.folder.delete({
 			id: tmp,
 			recursive: true
 		});

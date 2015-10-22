@@ -5,26 +5,32 @@ var request = require('request');
 
 var _ = require('lodash');
 
-module.exports = function(api, test, Promise) {
+module.exports = function(test, Promise) {
 
-    return api
-    .folder.create({
-        parentId: 0,
-        name: 'uploads_temp',
-        fields: [
-            'name',
-            'parent'
-        ]
-    })
+    var API;
+
+    return this.api
     .bind({}) // Is #this through promise chain
+    .then(function(api) {
 
+        API = api;
+
+        return API.folder.create({
+            parentId: 0,
+            name: 'uploads_temp',
+            fields: [
+                'name',
+                'parent'
+            ]
+        })
+    })
     .then(function(res) {
 
         console.log('** Upload folder created ->\n', res);
 
         this.tempUploadId = res.id;
 
-        return api.file.preflightCheck({
+        return API.file.preflightCheck({
             name: 'mynewfile.jpg',
             parentId: res.id
         })
@@ -35,7 +41,7 @@ module.exports = function(api, test, Promise) {
 
         var tmp = this.tempUploadId;
 
-        return api.file.upload({
+        return API.file.upload({
             name: 'mynewfile.jpg',
             file: __dirname + '/assets/test_image_upload.jpg',
             parentId: tmp,
@@ -51,7 +57,7 @@ module.exports = function(api, test, Promise) {
         //
         this.upFileId = res.entries[0].id;
 
-        return api.file.createLink({
+        return API.file.createLink({
             id: res.entries[0].id,
             access: 'open'
         })
@@ -78,7 +84,7 @@ module.exports = function(api, test, Promise) {
 
         var dlid = this.upFileId;
 
-        return api.file.download({
+        return API.file.download({
             id: dlid
         })
     })
@@ -92,7 +98,7 @@ module.exports = function(api, test, Promise) {
 
         var tmp = this.tempUploadId;
 
-        return api.folder.list({
+        return API.folder.list({
             id: tmp
         })
     })
@@ -101,7 +107,7 @@ module.exports = function(api, test, Promise) {
 
         var upId = this.upFileId;
 
-        return api.file.info({
+        return API.file.info({
             id: upId,
             fields: [
                 'file_version',
@@ -115,7 +121,7 @@ module.exports = function(api, test, Promise) {
 
         var upId = this.upFileId;
 
-        return api.file.updateInfo({
+        return API.file.updateInfo({
             id: upId,
             name: 'booberry.jpg',
             description: 'This describes a new booberry file',
@@ -137,7 +143,7 @@ module.exports = function(api, test, Promise) {
 
         var tmp = this.tempUploadId;
 
-        return api.folder.list({
+        return API.folder.list({
             id: tmp,
             fields: []
         })
@@ -149,7 +155,7 @@ module.exports = function(api, test, Promise) {
 
         // Upload a new version of the file.
         //
-        return api.file.update({
+        return API.file.update({
             id: upId,
             file: __dirname + '/assets/test_image_update.jpg',
         });
@@ -159,7 +165,7 @@ module.exports = function(api, test, Promise) {
 
         var tmp = this.tempUploadId;
 
-        return api.folder.list({
+        return API.folder.list({
             id: tmp,
             fields: []
         })
@@ -172,7 +178,7 @@ module.exports = function(api, test, Promise) {
 
         // Make a copy of the uploaded file, giving it a new name
         //
-        return api.file.copy({
+        return API.file.copy({
             id: upId,
             toFolderId: tmp,
             name: 'abrandnew_name.jpg',
@@ -188,7 +194,7 @@ module.exports = function(api, test, Promise) {
 
         var upId = this.upFileId;
 
-        return api.file.delete({
+        return API.file.delete({
             id: upId
         });
     })
@@ -197,7 +203,7 @@ module.exports = function(api, test, Promise) {
 
         var tmp = this.tempUploadId;
 
-        return api.folder.list({
+        return API.folder.list({
             id: tmp
         })
     })
@@ -209,9 +215,11 @@ module.exports = function(api, test, Promise) {
 
         var tmp = this.tempUploadId;
 
-        api.folder.delete({
+        console.log('** Deleted folder with id ' + tmp);
+
+        API.folder.delete({
             id: tmp,
             recursive: true
         });
     });
-}; 
+};

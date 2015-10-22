@@ -4,11 +4,19 @@ var fs = require('fs');
 var util = require('util');
 var _ = require('lodash');
 
-module.exports = function(api, test, Promise) {
+module.exports = function(test, Promise) {
 
-    return api.folder.graph({
-        id: 0,
-        verbose: true
+    var API;
+
+    return this.api
+    .then(function(api) {
+
+        API = api;
+
+        return api.folder.graph({
+            id: 0,
+            verbose: true
+        })
     })
     .then(function(graph) {
 

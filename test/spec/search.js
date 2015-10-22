@@ -3,19 +3,25 @@
 var util = require('util');
 var _ = require('lodash');
 
-module.exports = function(api, test, Promise) {
+module.exports = function(test, Promise) {
 
-	return api
-	.folder.create({
-		parentId: 0,
-		name: 'uploads_temp',
-		fields: [
-			'name',
-			'parent'
-		]
-	})
-	.bind({}) // Is #this through promise chain 
+    var API;
 
+	return this.api
+    .then(function(api) {
+
+        API = api;
+
+        return API.folder.create({
+            parentId: 0,
+            name: 'uploads_temp',
+            fields: [
+                'name',
+                'parent'
+            ]
+        });
+    })
+	.bind({}) // Is #this through promise chain
 	.then(function(res) {
 	
 		console.log('** Upload folder created ->\n', res);
@@ -26,7 +32,7 @@ module.exports = function(api, test, Promise) {
 			__dirname + '/assets/foo.txt', 
 			__dirname + '/assets/bar.txt'
 		].map(function(file) {
-			return api.file.upload({
+			return API.file.upload({
 				name: file.match(/.*\/([^\s]+)$/)[1], // last path segment
 				file: file,
 				parentId: res.id
@@ -38,7 +44,7 @@ module.exports = function(api, test, Promise) {
 
 		var tmp = this.tempUploadId;
 		
-		return api.folder.list({
+		return API.folder.list({
 			id: tmp
 		})
 	})
@@ -47,7 +53,7 @@ module.exports = function(api, test, Promise) {
 		
 		var tmp = this.tempUploadId;
 		
-		return api.search.execute({
+		return API.search.execute({
 			query: 'fi',
 			fileExtensions: ['txt'],
 			ancestorFolderIds: [0, tmp],
@@ -71,7 +77,7 @@ module.exports = function(api, test, Promise) {
 		//
 		var tmp = this.tempUploadId;
 		
-		api.folder.delete({
+		API.folder.delete({
 			id: tmp,
 			recursive: true
 		});
