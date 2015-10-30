@@ -3,6 +3,9 @@
 var util = require('util');
 var _ = require('lodash');
 
+// NOTE: This is a very loosey-goosey test requires the given #id to
+// actually exist as a file. TODO: create a file then delete it after
+//
 module.exports = function(test, Promise) {
 
     return this.api

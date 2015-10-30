@@ -19,7 +19,7 @@ module.exports = function(test, Promise) {
         })
     })
     .then(function(graph) {
-
+console.log(graph)
         test.ok(_.isPlainObject(graph), '#graph returned a result');
         test.ok(graph.paths, '#graph returned paths');
         test.ok(graph.lookup, '#graph returned a lookup table');

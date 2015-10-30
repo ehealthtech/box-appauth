@@ -57,7 +57,7 @@ module.exports = function(test, Promise) {
         //
         this.upFileId = res.entries[0].id;
 
-        return API.file.createLink({
+        return API.file.getSharedLink({
             id: res.entries[0].id,
             access: 'open'
         })
