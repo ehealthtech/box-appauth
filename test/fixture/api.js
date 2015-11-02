@@ -2,6 +2,7 @@
 
 var Path = require('path');
 var appAuth = require('../../lib');
+var _ = require('lodash');
 
 // Auth info for Box that every test will need.
 //
@@ -18,11 +19,19 @@ module.exports = function(test) {
 
         API = api;
 
+        test.comment('Basic folder.info test to check if API is working');
+
         return api.folder.info({
             id: 0
         })
     })
     .then(function(info) {
+
+        if(_.isPlainObject(info) && info.type === 'folder') {
+            test.pass('API successfully initialized (folder.info(0) returned results)');
+        } else {
+            test.fail('API is not available(folder.info has no results)');
+        }
 
         return API;
     })

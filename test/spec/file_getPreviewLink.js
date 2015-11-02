@@ -21,7 +21,7 @@ module.exports = function(test, Promise) {
             ]
         })
             .then(function(link) {
-console.log(link)
+
                 test.ok(_.isString(link) && link.length > 0, 'Download link created');
 
             });
