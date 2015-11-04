@@ -12,18 +12,12 @@ module.exports = function(test, Promise) {
     .then(function(api) {
 
         return api.file.getPreviewLink({
-            id: 42133774101,
-
-            // This is required; it's a "hidden" response field
-            //
-            fields: [
-                'expiring_embed_link'
-            ]
+            id: 42133774101
         })
-            .then(function(link) {
+        .then(function(link) {
 
-                test.ok(_.isString(link) && link.length > 0, 'Download link created');
+            test.ok(_.isString(link) && link.length > 0, 'Download link created');
 
-            });
+        });
     })
 };
