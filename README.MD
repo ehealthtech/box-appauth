@@ -10,7 +10,7 @@ Then:
 
 ```
 
-var appAuth = require('box-appauth');
+var appAuth = require('ehealth-box-appauth');
 
 appAuth({
 	publicKey : Your public key,
