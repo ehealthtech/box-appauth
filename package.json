@@ -27,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ehealthtech/box-appauth.git"
+    "url": "https://github.com/ehealthtechnologies/box-appauth.git"
   },
   "keywords": [
     "Box",
@@ -35,7 +35,7 @@
     "api"
   ],
   "bugs": {
-    "url": "https://github.com/ehealthtech/box-appauth/issues"
+    "url": "https://github.com/ehealthtechnologies/box-appauth/issues"
   },
-  "homepage": "https://github.com/ehealthtech/box-appauth"
+  "homepage": "https://github.com/ehealthtechnologies/box-appauth"
 }
