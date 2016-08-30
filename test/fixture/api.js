@@ -15,29 +15,29 @@ var API;
 module.exports = function(test) {
 
     var apiP = appAuth(auth)
-    .then(function(api) {
+        .then(function(api) {
 
-        API = api;
+            API = api;
 
-        test.comment('Basic folder.info test to check if API is working');
+            test.comment('Basic folder.info test to check if API is working');
 
-        return api.folder.info({
-            id: 0
+            return api.folder.info({
+                id: 0
+            })
         })
-    })
-    .then(function(info) {
+        .then(function(info) {
 
-        if(_.isPlainObject(info) && info.type === 'folder') {
-            test.pass('API successfully initialized (folder.info(0) returned results)');
-        } else {
-            test.fail('API is not available(folder.info has no results)');
-        }
+            if(_.isPlainObject(info) && info.type === 'folder') {
+                test.pass('API successfully initialized (folder.info(0) returned results)');
+            } else {
+                test.fail('API is not available(folder.info has no results)');
+            }
 
-        return API;
-    })
-    .catch(function(err) {
-        test.fail('API Fixture test failure:' + err)
-    });
+            return API;
+        })
+        .catch(function(err) {
+            test.fail('API Fixture test failure:' + err)
+        });
 
     return {
         api : apiP
