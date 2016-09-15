@@ -5,7 +5,7 @@ pids
 *.seed
 node_modules
 .DS_Store
-*.idea
+.idea/
 
 # node-waf configuration
 #

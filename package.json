@@ -1,6 +1,6 @@
 {
   "name": "ehealth-box-appauth",
-  "version": "1.6.11",
+  "version": "1.6.12",
   "description": "https://box-content.readme.io/v2.0/docs/app-auth",
   "main": "./lib/index.js",
   "scripts": {
@@ -27,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ehealthtechnologies/box-appauth.git"
+    "url": "https://github.com/ehealthtechnologies/ehealth-box-appauth.git"
   },
   "keywords": [
     "Box",
@@ -35,7 +35,7 @@
     "api"
   ],
   "bugs": {
-    "url": "https://github.com/ehealthtechnologies/box-appauth/issues"
+    "url": ""
   },
-  "homepage": "https://github.com/ehealthtechnologies/box-appauth"
+  "homepage": "https://github.com/ehealthtechnologies/ehealth-box-appauth"
 }
