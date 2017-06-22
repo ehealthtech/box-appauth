@@ -1,6 +1,6 @@
 {
   "name": "ehealth-box-appauth",
-  "version": "1.6.2",
+  "version": "1.6.13",
   "description": "https://box-content.readme.io/v2.0/docs/app-auth",
   "main": "./lib/index.js",
   "scripts": {
