@@ -1,19 +1,2 @@
-logs
-*.log
-pids
-*.pid
-*.seed
 node_modules
-.DS_Store
-
-# node-waf configuration
-#
-.lock-wscript
-
-# rsa keys
-#
-rsa
-
-# auth config
-#
-.credentials.js
+.idea
