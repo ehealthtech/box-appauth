@@ -9,15 +9,21 @@ var _ = require('lodash');
 module.exports = function(test, Promise) {
 
     return this.api
-    .then(function(api) {
+        .then(function(api) {
 
-        return api.file.getPreviewLink({
-            id: 42133774101
+            return api.file.getPreviewLink({
+                id: 42133774101,
+
+                // This is required; it's a "hidden" response field
+                //
+                fields: [
+                    'expiring_embed_link'
+                ]
+            })
+                .then(function(link) {
+
+                    test.ok(_.isString(link) && link.length > 0, 'Download link created');
+
+                });
         })
-        .then(function(link) {
-
-            test.ok(_.isString(link) && link.length > 0, 'Download link created');
-
-        });
-    })
 };
